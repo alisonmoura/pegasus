@@ -1,0 +1,22 @@
+{
+  "name": "pegasus",
+  "version": "0.0.0",
+  "description": "A Command Line Tools to setup your API with Nodejs and Expressjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "pegasus": "bin/pegasus.js"
+  },
+  "keywords": [
+    "node",
+    "cli"
+  ],
+  "author": "Alison Moura <alison.oghino@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "shelljs": "^0.7.4"
+  }
+}
