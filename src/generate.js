@@ -1,23 +1,42 @@
 'use strict';
 
 const shell = require("shelljs");
+const logs = require('./logs');
+const upperCase = require('./uppercase');
 
-module.export = (component, name) => {
+module.exports = (component, name) => {
     if (component) {
         switch (component) {
             case 'model':
-                console.log('Generate a model')
-                shell.exec(`pwd`);
+                logs.info('Generating a model...')
+                if (name) {
+                    shell.exec(`touch model/${upperCase(name)}.js`);
+                } else logs.error('model\'s name is required');
                 break;
-            case 'controller':
-                console.log('Generate a controler');
+            case 'router':
+                logs.info('Generating a router...');
+                if (name) {
+                    shell.exec(`touch router/${upperCase(name)}Router.js`);
+                } else logs.error('router\'s name is required');
                 break;
             case 'dao':
-                console.log('Generate a dao');
+                logs.info('Generating a dao...');
+                if (name) {
+                    shell.exec(`touch dao/${upperCase(name)}DAO.js`);
+                } else logs.error('dao\'s name is required');
                 break;
             default:
-                console.log("[ERROR] Component type is not valid");
+                if (component) {
+                    let name = component;
+                    logs.info(`Creating ${name} model...`);
+                    shell.exec(`touch model/${upperCase(name)}.js`);
+                    logs.info(`Creating ${name} dao...`);
+                    shell.exec(`touch dao/${upperCase(name)}DAO.js`);
+                    logs.info(`Creating ${name} router...`);
+                    shell.exec(`touch router/${upperCase(name)}Router.js`);
+                } else logs.error('name is required');
                 break;
         }
-    } else shell.exec("echo [ERROR] component type is required");
+        logs.success("Every thing was created successfuly");
+    } else logs.error('component type is required');
 }
