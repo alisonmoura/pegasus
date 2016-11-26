@@ -4,12 +4,9 @@
 
 const program = require('commander');
 const shell = require("shelljs");
+const help = require('./../src/help');
 const init = require('./../src/init');
 const generate = require('./../src/generate');
-
-let help = () => {
-    shell.exec('echo "Usage:\n init [name-of-project]-- creates a new project in current directory"');
-}
 
 program
     .version('0.0.1')
