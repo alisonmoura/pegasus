@@ -4,6 +4,17 @@ const shell = require("shelljs");
 const logs = require('./logs');
 const upperCase = require('./uppercase');
 
+function generateComponent(name) {
+    if (name) {
+        logs.info(`Creating ${name} model...`);
+        shell.exec(`touch model/${upperCase(name)}.js`);
+        logs.info(`Creating ${name} dao...`);
+        shell.exec(`touch dao/${upperCase(name)}DAO.js`);
+        logs.info(`Creating ${name} router...`);
+        shell.exec(`touch router/${upperCase(name)}Router.js`);
+    } else logs.error('name is required');
+}
+
 module.exports = (component, name) => {
     if (component) {
         switch (component) {
@@ -26,15 +37,7 @@ module.exports = (component, name) => {
                 } else logs.error('dao\'s name is required');
                 break;
             default:
-                if (component) {
-                    let name = component;
-                    logs.info(`Creating ${name} model...`);
-                    shell.exec(`touch model/${upperCase(name)}.js`);
-                    logs.info(`Creating ${name} dao...`);
-                    shell.exec(`touch dao/${upperCase(name)}DAO.js`);
-                    logs.info(`Creating ${name} router...`);
-                    shell.exec(`touch router/${upperCase(name)}Router.js`);
-                } else logs.error('name is required');
+                generateComponent(component);
                 break;
         }
         logs.success("Every thing was created successfuly");
